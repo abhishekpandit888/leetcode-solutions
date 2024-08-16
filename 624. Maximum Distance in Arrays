@@ -1,0 +1,21 @@
+class Solution {
+public:
+    int maxDistance(vector<vector<int>>& arrays) {
+        int smallest = arrays[0].front();
+        int largest = arrays[0].back();
+        int result = 0;
+
+        for (int i = 1; i < arrays.size(); i++) {
+            int currSmallest = arrays[i].front();
+            int currLargest = arrays[i].back();
+
+            result = max({result, abs(currSmallest - largest),
+                          abs(currLargest - smallest)});
+
+            smallest = min(currSmallest, smallest);
+            largest  = max(currLargest, largest);              
+        }
+
+        return result;
+    }
+};
