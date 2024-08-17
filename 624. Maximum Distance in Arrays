@@ -15,7 +15,6 @@ public:
             smallest = min(currSmallest, smallest);
             largest  = max(currLargest, largest);              
         }
-
         return result;
     }
 };
