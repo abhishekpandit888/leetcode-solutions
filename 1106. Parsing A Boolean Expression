@@ -1,0 +1,55 @@
+class Solution {
+public:
+    char solver(vector<char>& vec, char& op) {
+        if (op == '&') {
+            for (auto& ch : vec) {
+                if (ch == 'f') {
+                    return 'f';
+                }
+            }
+            return 't';
+        } else if (op == '|') {
+            for (auto& ch : vec) {
+                if (ch == 't') {
+                    return 't';
+                }
+            }
+            return 'f';
+        } else {
+            if (vec[0] == 'f')
+                return 't';
+            return 'f';
+        }
+    }
+
+    bool parseBoolExpr(string s) {
+        int n = s.length();
+
+        stack<char> st;
+
+        for (int i = 0; i < n; i++) {
+            if (s[i] == ',') {
+                continue;
+            }
+
+            if (s[i] == ')') {
+                vector<char> vec;
+
+                while (st.top() != '(') {
+                    vec.push_back(st.top());
+                    st.pop();
+                }
+
+                st.pop();
+                char op = st.top();
+                st.pop();
+
+                st.push(solver(vec, op));
+            } else {
+                st.push(s[i]);
+            }
+        }
+
+        return st.top() == 't' ? true : false;
+    }
+};
